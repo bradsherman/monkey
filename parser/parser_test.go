@@ -8,6 +8,12 @@ import (
 	"github.com/bradsherman/monkey/lexer"
 )
 
+/*
+func TestIfExpression(t *testing.T) {
+
+}
+*/
+
 func TestOperatorPrecedenceParsing(t *testing.T) {
 	tests := []struct {
 		input string
@@ -60,6 +66,26 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		{
 			"3 + 4 * 5 == 3 * 1 + 4 * 5",
 			"((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
+		},
+		{
+			"1 + (2 + 3) + 4",
+			"((1 + (2 + 3)) + 4)",
+		},
+		{
+			"(5 + 5) * 2",
+			"((5 + 5) * 2)",
+		},
+		{
+			"2 / (5 + 5)",
+			"(2 / (5 + 5))",
+		},
+		{
+			"-(5 + 5)",
+			"(-(5 + 5))",
+		},
+		{
+			"!(true == true)",
+			"(!(true == true))",
 		},
 	}
 
@@ -134,6 +160,9 @@ func TestParsingPrefixExpressions(t *testing.T) {
 	}{
 		{"!5", "!", 5},
 		{"-15", "-", 15},
+		// TODO add these
+		// {"!true", "!", true},
+		// {"!false", "!", false},
 	}
 
 	for _, tt := range prefixTests {
