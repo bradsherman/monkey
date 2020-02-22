@@ -27,11 +27,14 @@ if (5 < 10) {
 
 10 == 10;
 9 != 8;
+"foobar"
+"foo bar"
+[1, 2];
 `
 
 	tests := []struct {
-		expectedType     token.TokenType
-		expectedLiteral  string
+		expectedType    token.TokenType
+		expectedLiteral string
 	}{
 		{token.LET, "let"},
 		{token.IDENT, "five"},
@@ -105,6 +108,14 @@ if (5 < 10) {
 		{token.INT, "9"},
 		{token.NOT_EQ, "!="},
 		{token.INT, "8"},
+		{token.SEMICOLON, ";"},
+		{token.STRING, "foobar"},
+		{token.STRING, "foo bar"},
+		{token.LBRACKET, "["},
+		{token.INT, "1"},
+		{token.COMMA, ","},
+		{token.INT, "2"},
+		{token.RBRACKET, "]"},
 		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}
